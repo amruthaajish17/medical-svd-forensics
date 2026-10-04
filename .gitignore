@@ -2,3 +2,9 @@ venv/
 __pycache__/
 *.pyc
 *.npy
+# Local datasets and generated handoff data
+data/
+handoff_dataset.zip
+
+# Local TCIA utility
+tcia-cli
