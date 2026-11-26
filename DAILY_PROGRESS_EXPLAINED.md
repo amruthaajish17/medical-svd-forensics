@@ -13,8 +13,8 @@ This document provides a day-by-day, easy-to-understand breakdown of the entire 
 | **Day 3** | Anomaly Mapping | 2D difference heatmaps, spatial lesion localization | ✅ Completed |
 | **Day 4** | Block Size Optimization | Evaluating 8×8, 16×16, 32×32 block trade-offs, Full metrics suite (F1, IoU, AUC) | ✅ Completed |
 | **Day 5** | Multi-Attack Forensics | Copy-move, splicing, and inpainting attack simulation & detection | ✅ Completed |
-| **Day 6** | Benign Transformation Robustness | Testing Gaussian noise, blur, compression to suppress false alarms | 🔄 In Progress |
-| **Day 7** | AI & Deepfake Inpainting | Simulating generative AI lesion insertions (M3Dsynth framework) | ⏳ Pending |
+| **Day 6** | Benign Transformation Robustness | Testing Gaussian noise, blur, compression to suppress false alarms | ✅ Completed |
+| **Day 7** | AI & Deepfake Inpainting | Simulating generative AI lesion insertions (M3Dsynth framework) | 🔄 In Progress |
 | **Day 8** | Feature Ablation & ROC Analysis | Finding dominant singular features vs. spectral entropy via ROC-AUC | ⏳ Pending |
 | **Day 9** | Canonical Quantization | Floating-point quantization & deterministic serialization for crypto | ⏳ Pending |
 | **Day 10** | Cryptographic Authentication | Block-level HMAC-SHA256 spatial binding | ⏳ Pending |
@@ -97,4 +97,22 @@ This document provides a day-by-day, easy-to-understand breakdown of the entire 
   - `run_day5_multi_attack_benchmark.py`
   - `results/metrics/day5_multi_attack_results.csv`
   - `figures/day5_multi_attack_detection.png`
+
+---
+
+### Day 6: Benign Transformations & False Alarm Resistance
+- **What was done in simple terms:**
+  A forensic detector is useless in a hospital if it triggers on normal, harmless events—like slight camera noise, image compression when sending a file across PACS, or slight patient movement. We subjected genuine CT images to:
+  1. Low-dose Gaussian sensor noise
+  2. Lossy PACS JPEG compression (Qualities 85 and 70)
+  3. Micro-motion blur
+  4. Global exposure / calibration intensity drift
+- **Key Finding:**
+  Mild PACS JPEG compression ($Q=85$) yielded **0% False Alarm Rate** ($\text{FPR} = 0.0\%$), completely preserving clinical diagnosis integrity. Meanwhile, global perturbations (like exposure shifts) affect all blocks uniformly, whereas malicious tampering produces highly localized spatial anomaly spikes. This critical observation motivates our hybrid architecture: combining local SVD forensics with exact cryptographic block hashing (HMAC/Merkle) to eliminate false positives.
+- **Key Output Files:**
+  - `src/robustness.py`
+  - `run_day6_robustness_benchmark.py`
+  - `results/metrics/day6_robustness_results.csv`
+  - `figures/day6_robustness_analysis.png`
+
 
