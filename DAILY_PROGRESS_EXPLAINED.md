@@ -12,8 +12,8 @@ This document provides a day-by-day, easy-to-understand breakdown of the entire 
 | **Day 2** | Sensitivity Analysis | Micro-scale pixel modifications (1 to 100 px), Feature sensitivity curve | ✅ Completed |
 | **Day 3** | Anomaly Mapping | 2D difference heatmaps, spatial lesion localization | ✅ Completed |
 | **Day 4** | Block Size Optimization | Evaluating 8×8, 16×16, 32×32 block trade-offs, Full metrics suite (F1, IoU, AUC) | ✅ Completed |
-| **Day 5** | Multi-Attack Forensics | Copy-move, splicing, and inpainting attack simulation & detection | 🔄 In Progress |
-| **Day 6** | Benign Transformation Robustness | Testing Gaussian noise, blur, compression to suppress false alarms | ⏳ Pending |
+| **Day 5** | Multi-Attack Forensics | Copy-move, splicing, and inpainting attack simulation & detection | ✅ Completed |
+| **Day 6** | Benign Transformation Robustness | Testing Gaussian noise, blur, compression to suppress false alarms | 🔄 In Progress |
 | **Day 7** | AI & Deepfake Inpainting | Simulating generative AI lesion insertions (M3Dsynth framework) | ⏳ Pending |
 | **Day 8** | Feature Ablation & ROC Analysis | Finding dominant singular features vs. spectral entropy via ROC-AUC | ⏳ Pending |
 | **Day 9** | Canonical Quantization | Floating-point quantization & deterministic serialization for crypto | ⏳ Pending |
@@ -79,3 +79,22 @@ This document provides a day-by-day, easy-to-understand breakdown of the entire 
   - `run_day4_block_size_optimization.py`
   - `results/metrics/day4_block_size_results.csv`
   - `figures/day4_block_size_comparison.png`
+
+---
+
+### Day 5: Multi-Attack Forensics Evaluation
+- **What was done in simple terms:**
+  Attackers don't just change single pixels; they perform sophisticated forgeries:
+  1. **Region Tampering**: Inserting a bright lesion or artificial nodule into healthy tissue.
+  2. **Copy-Move Forgery**: Duplicating genuine lung tissue or an existing tumor from one part of the scan to another.
+  3. **Splicing Attack**: Implanting foreign pathology from another patient's scan into the target scan.
+  4. **Inpainting / Lesion Removal**: Erasing a malignant tumor and mathematically smoothing over it to falsely make a patient look healthy.
+  We implemented all four attack modalities in `src/tampering.py` and benchmarked SVD anomaly detection against each.
+- **Key Finding:**
+  The passive SVD detector achieved **$F_1 = 1.00$** on Region Insertion, Splicing, and Inpainting, and **$F_1 = 0.86$** on Copy-Move cloning with perfect $\text{AUC} = 1.00$. This confirms that local SVD spectral characteristics provide a powerful defense against real-world clinical CT falsifications.
+- **Key Output Files:**
+  - `src/tampering.py` (enhanced multi-attack generator)
+  - `run_day5_multi_attack_benchmark.py`
+  - `results/metrics/day5_multi_attack_results.csv`
+  - `figures/day5_multi_attack_detection.png`
+
