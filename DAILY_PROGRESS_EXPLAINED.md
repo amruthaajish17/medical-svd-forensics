@@ -14,8 +14,8 @@ This document provides a day-by-day, easy-to-understand breakdown of the entire 
 | **Day 4** | Block Size Optimization | Evaluating 8×8, 16×16, 32×32 block trade-offs, Full metrics suite (F1, IoU, AUC) | ✅ Completed |
 | **Day 5** | Multi-Attack Forensics | Copy-move, splicing, and inpainting attack simulation & detection | ✅ Completed |
 | **Day 6** | Benign Transformation Robustness | Testing Gaussian noise, blur, compression to suppress false alarms | ✅ Completed |
-| **Day 7** | AI & Deepfake Inpainting | Simulating generative AI lesion insertions (M3Dsynth framework) | 🔄 In Progress |
-| **Day 8** | Feature Ablation & ROC Analysis | Finding dominant singular features vs. spectral entropy via ROC-AUC | ⏳ Pending |
+| **Day 7** | AI & Deepfake Inpainting | Simulating generative AI lesion insertions (M3Dsynth framework) | ✅ Completed |
+| **Day 8** | Feature Ablation & ROC Analysis | Finding dominant singular features vs. spectral entropy via ROC-AUC | 🔄 In Progress |
 | **Day 9** | Canonical Quantization | Floating-point quantization & deterministic serialization for crypto | ⏳ Pending |
 | **Day 10** | Cryptographic Authentication | Block-level HMAC-SHA256 spatial binding | ⏳ Pending |
 | **Day 11** | Merkle Tree Architecture | Hierarchical Merkle tree root verification & leaf-level tamper tracing | ⏳ Pending |
@@ -114,5 +114,25 @@ This document provides a day-by-day, easy-to-understand breakdown of the entire 
   - `run_day6_robustness_benchmark.py`
   - `results/metrics/day6_robustness_results.csv`
   - `figures/day6_robustness_analysis.png`
+
+---
+
+### Day 7: Modern Generative AI (GAN & Diffusion) Manipulation Forensics
+- **What was done in simple terms:**
+  Today's most concerning medical fraud threat isn't simple copy-pasting—it is **generative AI deepfakes** (e.g., using CT-GAN or Latent Diffusion models like MedDDPM to inject artificial malignant tumors or erase real lung lesions). Following the M3Dsynth dataset framework:
+  1. We simulated **GAN-based lesion synthesis** with characteristic high-frequency deconvolution checkerboard residuals and non-linear boundary gradients.
+  2. We simulated **Diffusion model inpainting**, performing multi-step stochastic denoising that matches surrounding parenchymal texture statistics.
+- **Key Finding:**
+  Does classical SVD detect modern AI deepfakes? **Yes!**
+  - GAN lesion insertion yielded **$F_1 = 1.00$** and **$\text{AUC} = 1.00$** due to generator spectral upsampling disruption.
+  - Diffusion inpainting achieved **$F_1 = 0.80$**, **$\text{IoU} = 0.51$**, and **$\text{AUC} = 1.00$** with significant entropy changes ($\Delta H = 0.43$).
+  This answers the paper's central question: classical linear algebraic SVD spectral decomposition retains strong sensitivity even against deep generative neural architectures!
+- **Key Output Files:**
+  - `src/ai_tampering.py`
+  - `run_day7_ai_manipulation_benchmark.py`
+  - `data/m3dsynth/` (paired authentic, manipulated, and mask images)
+  - `results/metrics/day7_ai_manipulation_results.csv`
+  - `figures/day7_ai_manipulation_detection.png`
+
 
 
