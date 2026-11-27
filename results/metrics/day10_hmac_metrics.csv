@@ -1,0 +1,5 @@
+Scenario,Result,Tampered_Blocks,Verification_Time_ms,Expected
+Authentic CT (Legitimate Key),VALID,0,10.19660010933876,VALID
+Region Tampering (16x16),TAMPERED,4,8.242799900472164,TAMPERED
+Copy-Move Forgery,TAMPERED,4,10.040500201284885,TAMPERED
+Authentic CT (Wrong Key),TAMPERED,64,8.49999999627471,TAMPERED

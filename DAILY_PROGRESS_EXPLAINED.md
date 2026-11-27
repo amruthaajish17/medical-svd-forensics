@@ -17,8 +17,8 @@ This document provides a day-by-day, easy-to-understand breakdown of the entire 
 | **Day 7** | AI & Deepfake Inpainting | Simulating generative AI lesion insertions (M3Dsynth framework) | ✅ Completed |
 | **Day 8** | Feature Ablation & ROC Analysis | Finding dominant singular features vs. spectral entropy via ROC-AUC | ✅ Completed |
 | **Day 9** | Canonical Quantization | Floating-point quantization & deterministic serialization for crypto | ✅ Completed |
-| **Day 10** | Cryptographic Authentication | Block-level HMAC-SHA256 spatial binding | 🔄 In Progress |
-| **Day 11** | Merkle Tree Architecture | Hierarchical Merkle tree root verification & leaf-level tamper tracing | ⏳ Pending |
+| **Day 10** | Cryptographic Authentication | Block-level HMAC-SHA256 spatial binding | ✅ Completed |
+| **Day 11** | Merkle Tree Architecture | Hierarchical Merkle tree root verification & leaf-level tamper tracing | 🔄 In Progress |
 | **Day 12** | Adversarial Threat Modeling | Testing malicious pixel-only, metadata, and key tampering attacks | ⏳ Pending |
 | **Day 13** | Publication Assets | Generating high-resolution Figures 1–5 and Tables 1–5 | ⏳ Pending |
 | **Day 14** | Manuscript & Master Suite | Complete conference paper manuscript & master execution suite | ⏳ Pending |
@@ -164,6 +164,25 @@ This document provides a day-by-day, easy-to-understand breakdown of the entire 
   - `run_day9_quantization_stability.py`
   - `results/metrics/day9_quantization_stability.csv`
   - `figures/day9_quantization_stability.png`
+
+---
+
+### Day 10: Cryptographic Layer — Spatial Block HMAC-SHA256 Signatures
+- **What was done in simple terms:**
+  Passive forensics gives anomaly scores, but in a courtroom or clinical audit, you need **unforgeable proof** of authenticity. We implemented a keyed hash message authentication code (HMAC-SHA256) layer:
+  $$h_k = \text{HMAC}_K\left(\tilde{F}_k \parallel x_k \parallel y_k\right)$$
+  - Each block's quantized SVD features are cryptographically locked using a 256-bit secret key $K$.
+  - Crucially, the spatial coordinates $(x_k, y_k)$ are cryptographically bound inside the hash. This prevents attackers from performing copy-move forgeries or swapping blocks without invalidating the signature!
+- **Key Finding:**
+  - Valid scans verify in **$10.2\text{ ms}$** with $0$ rejections.
+  - Manipulated blocks trigger **$100\%$ cryptographic tag rejection** at the exact spatial lesion coordinates.
+  - An attacker attempting verification with the wrong key is rejected across $100\%$ of blocks.
+- **Key Output Files:**
+  - `src/crypto.py`
+  - `run_day10_hmac_authentication.py`
+  - `results/metrics/day10_hmac_metrics.csv`
+  - `figures/day10_hmac_spatial_authentication.png`
+
 
 
 
