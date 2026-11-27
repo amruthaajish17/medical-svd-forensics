@@ -15,8 +15,8 @@ This document provides a day-by-day, easy-to-understand breakdown of the entire 
 | **Day 5** | Multi-Attack Forensics | Copy-move, splicing, and inpainting attack simulation & detection | ✅ Completed |
 | **Day 6** | Benign Transformation Robustness | Testing Gaussian noise, blur, compression to suppress false alarms | ✅ Completed |
 | **Day 7** | AI & Deepfake Inpainting | Simulating generative AI lesion insertions (M3Dsynth framework) | ✅ Completed |
-| **Day 8** | Feature Ablation & ROC Analysis | Finding dominant singular features vs. spectral entropy via ROC-AUC | 🔄 In Progress |
-| **Day 9** | Canonical Quantization | Floating-point quantization & deterministic serialization for crypto | ⏳ Pending |
+| **Day 8** | Feature Ablation & ROC Analysis | Finding dominant singular features vs. spectral entropy via ROC-AUC | ✅ Completed |
+| **Day 9** | Canonical Quantization | Floating-point quantization & deterministic serialization for crypto | 🔄 In Progress |
 | **Day 10** | Cryptographic Authentication | Block-level HMAC-SHA256 spatial binding | ⏳ Pending |
 | **Day 11** | Merkle Tree Architecture | Hierarchical Merkle tree root verification & leaf-level tamper tracing | ⏳ Pending |
 | **Day 12** | Adversarial Threat Modeling | Testing malicious pixel-only, metadata, and key tampering attacks | ⏳ Pending |
@@ -133,6 +133,22 @@ This document provides a day-by-day, easy-to-understand breakdown of the entire 
   - `data/m3dsynth/` (paired authentic, manipulated, and mask images)
   - `results/metrics/day7_ai_manipulation_results.csv`
   - `figures/day7_ai_manipulation_detection.png`
+
+---
+
+### Day 8: SVD Feature Ablation Study & ROC-AUC Analysis
+- **What was done in simple terms:**
+  We extracted 5 different mathematical features from each CT block. But *which specific feature is doing the heavy lifting?* To answer this scientifically, we ran an ablation study where we tested each feature individually and in combination across 320 block evaluations covering all 5 tampering families (Region insertion, Copy-move, Splicing, Inpainting, and CT-GAN). We swept classification thresholds to plot Receiver Operating Characteristic (ROC) curves and computed the Area Under the Curve (AUC).
+- **Key Finding:**
+  - $\sigma_1$ (Dominant Singular Value) alone achieves **$\text{AUC} = 1.0000$** ($F_1 = 1.0000$).
+  - Frobenius energy ($\sum\sigma_i^2$) also achieved **$\text{AUC} = 1.0000$**.
+  - Spectral entropy ($H$) achieved **$\text{AUC} = 0.9892$**, showing high sensitivity to texture irregularity.
+  - The combination of **$\sigma_1 + \text{Spectral Entropy}$** formed an optimal, lightweight ensemble ($\text{AUC} = 1.0000$, $F_1 = 1.0000$). This proves that we only need a compact 2-feature vector per block for cryptographic hashing, keeping cryptographic overhead minimal!
+- **Key Output Files:**
+  - `run_day8_feature_ablation.py`
+  - `results/metrics/day8_feature_ablation_results.csv`
+  - `figures/day8_roc_curves_ablation.png`
+
 
 
 
