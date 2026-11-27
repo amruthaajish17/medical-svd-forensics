@@ -1,0 +1,4 @@
+Test_Case,Root_Match,Root_Hash,Mismatched_Leaves,Time_ms,Decision
+Authentic CT Image,True,2c4373c0ff9e906a...,0,9.889000095427036,VALID
+1-Pixel Micro-Tampering,False,75ebb0edd2ca0e6c...,1,13.617200078442693,TAMPERED
+16x16 Region Tampering,False,3f68aac37ba45a70...,4,10.499800089746714,TAMPERED

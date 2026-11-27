@@ -18,8 +18,8 @@ This document provides a day-by-day, easy-to-understand breakdown of the entire 
 | **Day 8** | Feature Ablation & ROC Analysis | Finding dominant singular features vs. spectral entropy via ROC-AUC | ✅ Completed |
 | **Day 9** | Canonical Quantization | Floating-point quantization & deterministic serialization for crypto | ✅ Completed |
 | **Day 10** | Cryptographic Authentication | Block-level HMAC-SHA256 spatial binding | ✅ Completed |
-| **Day 11** | Merkle Tree Architecture | Hierarchical Merkle tree root verification & leaf-level tamper tracing | 🔄 In Progress |
-| **Day 12** | Adversarial Threat Modeling | Testing malicious pixel-only, metadata, and key tampering attacks | ⏳ Pending |
+| **Day 11** | Merkle Tree Architecture | Hierarchical Merkle tree root verification & leaf-level tamper tracing | ✅ Completed |
+| **Day 12** | Adversarial Threat Modeling | Testing malicious pixel-only, metadata, and key tampering attacks | 🔄 In Progress |
 | **Day 13** | Publication Assets | Generating high-resolution Figures 1–5 and Tables 1–5 | ⏳ Pending |
 | **Day 14** | Manuscript & Master Suite | Complete conference paper manuscript & master execution suite | ⏳ Pending |
 
@@ -182,6 +182,25 @@ This document provides a day-by-day, easy-to-understand breakdown of the entire 
   - `run_day10_hmac_authentication.py`
   - `results/metrics/day10_hmac_metrics.csv`
   - `figures/day10_hmac_spatial_authentication.png`
+
+---
+
+### Day 11: Hierarchical Merkle Tree Spatial Verification & Tamper Tracing
+- **What was done in simple terms:**
+  Instead of sending dozens of individual block signatures across a hospital network, can we represent an entire medical CT scan with a single, compact fingerprint? **Yes, using a Merkle Tree.**
+  - We organized all block signatures into the leaves of a balanced binary tree and recursively computed SHA-256 hashes up to a single **32-byte Merkle Root Hash ($R$)**.
+  - **Global Verification ($O(1)$)**: A doctor or PACS server checks if $R_{\text{received}} == R_{\text{computed}}$. If they match, the scan is $100\%$ authentic.
+  - **Pinpoint Localization**: If the roots do not match, the system walks down the tree branches to isolate the exact leaf blocks that were tampered with.
+- **Key Finding:**
+  - Full image verification takes under **$10\text{ ms}$**.
+  - Even a single modified pixel changes the Merkle root hash completely and isolates the exact $1$ affected block.
+  - Verification requires only $O(\log_2 N)$ audit proof hashes (just 6 sibling hashes for a 64-block scan).
+- **Key Output Files:**
+  - `src/merkle_tree.py`
+  - `run_day11_merkle_tree_authentication.py`
+  - `results/metrics/day11_merkle_metrics.csv`
+  - `figures/day11_merkle_tree_localization.png`
+
 
 
 
