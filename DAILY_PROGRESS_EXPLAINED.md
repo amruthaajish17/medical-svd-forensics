@@ -20,8 +20,8 @@ This document provides a day-by-day, easy-to-understand breakdown of the entire 
 | **Day 10** | Cryptographic Authentication | Block-level HMAC-SHA256 spatial binding | ✅ Completed |
 | **Day 11** | Merkle Tree Architecture | Hierarchical Merkle tree root verification & leaf-level tamper tracing | ✅ Completed |
 | **Day 12** | Adversarial Threat Modeling | Testing malicious pixel-only, metadata, and key tampering attacks | ✅ Completed |
-| **Day 13** | Publication Assets | Generating high-resolution Figures 1–5 and Tables 1–5 | 🔄 In Progress |
-| **Day 14** | Manuscript & Master Suite | Complete conference paper manuscript & master execution suite | ⏳ Pending |
+| **Day 13** | Publication Assets | Generating high-resolution Figures 1–5 and Tables 1–5 | ✅ Completed |
+| **Day 14** | Manuscript & Master Suite | Complete conference paper manuscript & master execution suite | 🔄 In Progress |
 
 ---
 
@@ -217,6 +217,24 @@ This document provides a day-by-day, easy-to-understand breakdown of the entire 
   - `run_day12_security_threat_model.py`
   - `results/metrics/day12_threat_model_results.csv`
   - `figures/day12_threat_model_security.png`
+
+---
+
+### Day 13: Final Publication Figures & Master Experimental Tables
+- **What was done in simple terms:**
+  To prepare for the manuscript and conference submission, we consolidated all experimental metrics and generated publication-grade figures at 300 DPI alongside master tables formatted for scientific review.
+- **Key Assets Generated:**
+  - **Figure 1**: High-level End-to-End System Architecture (Dual Passive SVD Forensic and Cryptographic Authentication flows).
+  - **Figure 2**: Multi-Attack Localization Gallery ($4 \times 4$ panel visual array for Region Insertion, Copy-Move, Splicing, and Inpainting).
+  - **Figure 3**: SVD Feature Sensitivity Response Curves across micro-pixel scales ($1$ to $100$ px).
+  - **Figure 4**: Modern AI Deepfake & Latent Diffusion (M3Dsynth) manipulation detection heatmaps.
+  - **Figure 5**: Merkle Tree Root verification and leaf discrepancy spatial localization overlay.
+  - **Tables 1 to 5**: Formatted markdown and data tables covering Dataset composition, Feature ablation rankings, Multi-attack performance, Block size IoU trade-offs, and Computational runtimes ($16.16\text{ ms}$ total).
+- **Key Output Files:**
+  - `run_day13_publication_assets.py`
+  - `figures/fig1_end_to_end_architecture.png` through `figures/fig5_merkle_cryptographic_localization.png`
+  - `paper/tables/table1_dataset.md` through `table5_computational_runtime.md`
+
 
 
 
