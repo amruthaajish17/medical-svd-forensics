@@ -16,8 +16,8 @@ This document provides a day-by-day, easy-to-understand breakdown of the entire 
 | **Day 6** | Benign Transformation Robustness | Testing Gaussian noise, blur, compression to suppress false alarms | ✅ Completed |
 | **Day 7** | AI & Deepfake Inpainting | Simulating generative AI lesion insertions (M3Dsynth framework) | ✅ Completed |
 | **Day 8** | Feature Ablation & ROC Analysis | Finding dominant singular features vs. spectral entropy via ROC-AUC | ✅ Completed |
-| **Day 9** | Canonical Quantization | Floating-point quantization & deterministic serialization for crypto | 🔄 In Progress |
-| **Day 10** | Cryptographic Authentication | Block-level HMAC-SHA256 spatial binding | ⏳ Pending |
+| **Day 9** | Canonical Quantization | Floating-point quantization & deterministic serialization for crypto | ✅ Completed |
+| **Day 10** | Cryptographic Authentication | Block-level HMAC-SHA256 spatial binding | 🔄 In Progress |
 | **Day 11** | Merkle Tree Architecture | Hierarchical Merkle tree root verification & leaf-level tamper tracing | ⏳ Pending |
 | **Day 12** | Adversarial Threat Modeling | Testing malicious pixel-only, metadata, and key tampering attacks | ⏳ Pending |
 | **Day 13** | Publication Assets | Generating high-resolution Figures 1–5 and Tables 1–5 | ⏳ Pending |
@@ -148,6 +148,23 @@ This document provides a day-by-day, easy-to-understand breakdown of the entire 
   - `run_day8_feature_ablation.py`
   - `results/metrics/day8_feature_ablation_results.csv`
   - `figures/day8_roc_curves_ablation.png`
+
+---
+
+### Day 9: Deterministic Feature Quantization & Canonical Serialization
+- **What was done in simple terms:**
+  Before we can use cryptographic tools like HMAC or Merkle trees, there is a fundamental computer science barrier: **floating-point numbers**. Because different computers and processors round floating-point math slightly differently (e.g., $0.10000000000000002$ vs $0.1$), and cryptographic hashes change entirely if even a single bit differs, we cannot directly hash raw floats!
+  We designed and implemented a **canonical quantization layer**:
+  $$\tilde{F}_k = \text{round}\left(F_k \times 10^d\right)$$
+  and serialized the quantized features into a strictly ordered, UTF-8 byte string explicitly bound to spatial block coordinates $(x_k, y_k)$.
+- **Key Finding:**
+  We proved that at precision $d=4$, our feature representation achieves **$100\%$ bitwise deterministic reproducibility** across independent extractions while flagging $100\%$ of tampered blocks. This provides the stable bridge between continuous linear algebra (SVD) and discrete cryptography.
+- **Key Output Files:**
+  - `src/quantization.py`
+  - `run_day9_quantization_stability.py`
+  - `results/metrics/day9_quantization_stability.csv`
+  - `figures/day9_quantization_stability.png`
+
 
 
 
