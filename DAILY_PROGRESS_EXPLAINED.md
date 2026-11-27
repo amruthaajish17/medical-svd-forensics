@@ -19,8 +19,8 @@ This document provides a day-by-day, easy-to-understand breakdown of the entire 
 | **Day 9** | Canonical Quantization | Floating-point quantization & deterministic serialization for crypto | ✅ Completed |
 | **Day 10** | Cryptographic Authentication | Block-level HMAC-SHA256 spatial binding | ✅ Completed |
 | **Day 11** | Merkle Tree Architecture | Hierarchical Merkle tree root verification & leaf-level tamper tracing | ✅ Completed |
-| **Day 12** | Adversarial Threat Modeling | Testing malicious pixel-only, metadata, and key tampering attacks | 🔄 In Progress |
-| **Day 13** | Publication Assets | Generating high-resolution Figures 1–5 and Tables 1–5 | ⏳ Pending |
+| **Day 12** | Adversarial Threat Modeling | Testing malicious pixel-only, metadata, and key tampering attacks | ✅ Completed |
+| **Day 13** | Publication Assets | Generating high-resolution Figures 1–5 and Tables 1–5 | 🔄 In Progress |
 | **Day 14** | Manuscript & Master Suite | Complete conference paper manuscript & master execution suite | ⏳ Pending |
 
 ---
@@ -200,6 +200,24 @@ This document provides a day-by-day, easy-to-understand breakdown of the entire 
   - `run_day11_merkle_tree_authentication.py`
   - `results/metrics/day11_merkle_metrics.csv`
   - `figures/day11_merkle_tree_localization.png`
+
+---
+
+### Day 12: Adversarial Threat Modeling & Security Stress Testing
+- **What was done in simple terms:**
+  To guarantee our architecture is mathematically secure before publishing, we subjected it to five realistic adversarial attack vectors:
+  1. **Pixel-Only Attacker**: Injects a tumor into the CT image pixels but cannot compute the secret HMAC key.
+  2. **Metadata Tamperer**: Modifies pixel coordinates $(x, y)$ in the header in an attempt to spoof the spatial layout.
+  3. **Unauthorized Verifier / Key Guesser**: Attempts to verify or forge tags using an illegitimate or guessed key.
+  4. **Manifest Tamperer**: Tries directly editing the stored numerical SVD features in the manifest to match the tampered image.
+  5. **Replay / Block-Swap Attacker**: Copies a valid cryptographic signature from Block $A$ and pastes it onto Block $B$.
+- **Key Finding:**
+  **100% of adversarial attacks were intercepted and defeated.** Because each block signature cryptographically binds both the quantized SVD features and their spatial coordinates under a secret key ($h_k = \text{HMAC}_K(\tilde{F}_k \parallel x_k \parallel y_k)$), no block can be moved, substituted, modified, or forged without causing immediate cryptographic rejection.
+- **Key Output Files:**
+  - `run_day12_security_threat_model.py`
+  - `results/metrics/day12_threat_model_results.csv`
+  - `figures/day12_threat_model_security.png`
+
 
 
 

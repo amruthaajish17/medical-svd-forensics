@@ -1,0 +1,6 @@
+Attack_Vector,Adversary_Goal,HMAC_Rejection,Merkle_Root_Mismatch,Security_Result,Flagged_Blocks
+1. Pixel-Only Tampering,Insert lesion without altering manifest,True,True,DEFEATED,4
+2. Metadata Tampering (Coord Shift),"Alter (x,y) to bypass block verification",True,True,DEFEATED,1
+3. Unauthorized / Wrong Key,Impersonate legitimate verifier/forge tag,True,True,DEFEATED,64
+4. Manifest SVD Manipulation,Falsify SVD features inside manifest,True,True,DEFEATED,1
+5. Replay / Block-Swap Attack,Swap valid HMAC tags across spatial locations,True,True,DEFEATED,1
